@@ -18,8 +18,8 @@ export default {
   mounted: function() {
     new Valine({
       el: "#vcomments",
-      appId: "xaTxWYF4MoGgVBOY3ES5fgvP-gzGzoHsz", // your appId
-      appKey: "Re7rsS5BVmUbJJzLKByiDDeu", // your appKey
+      appId: "your appID", // your appId
+      appKey: "your appKey", // your appKey
       notify: false,
       verify: false,
       path: window.location.pathname,
