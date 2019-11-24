@@ -1,9 +1,9 @@
 <!-- 头部公用 -->
 <template>
   <div>
+    <!-- 电脑端 -->
     <div class="header">
       <div class="header-container">
-        <!-- 电脑端 -->
         <div class="nav-left">
           <router-link to="/login">
             <img src="../../assets/img/yanhe.png" alt="yanhe" />
@@ -122,12 +122,26 @@ export default {
     search() {
       if (this.search_pc) {
         this.$router.push(`/search/${this.search_pc}`);
-      } 
-      if (this.search_mb){
+      }
+      if (this.search_mb) {
         this.$router.push(`/search/${this.search_mb}`);
       }
-    }
+    },
+    // onwheel(e) {
+    //   let wheel = e.wheelDelta;
+    //   if (wheel < 0) {
+    //     document.getElementsByClassName("header").style.top = "-70px"
+    //   } else {
+    //     document.getElementsByClassName("header").style.top = "0px"
+    //   }
+    // }
   },
+  // mounted() {
+  //   window.addEventListener("wheel", this.onwheel);
+  // },
+  // destroyed() {
+  //   window.removeEventListener("wheel", this.onwheel);
+  // },
   created() {
     this.fetchTags();
   }
@@ -169,13 +183,14 @@ export default {
 .search_mb > .el-input:hover {
   width: 250px;
 }
-</style>>
+</style>
 <style scoped>
 .header {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.904);
   width: 100%;
   height: 70px;
   position: fixed;
+  /*transition: top 0.5s;*/
   top: 0;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -282,3 +297,4 @@ i {
   justify-content: space-around;
 }
 </style>
+

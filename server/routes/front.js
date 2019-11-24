@@ -4,6 +4,7 @@ module.exports = app => {
   const router = express.Router({
     mergeParams: true
   })
+  const page_size = 12; // 每页文章数量
   //常规获取
   router.get('/', async (req, res) => {
     const items = await req.Model.find()
@@ -25,41 +26,41 @@ module.exports = app => {
     }
     // 查询置顶文章
     const top = await req.Model.find({
-      istop: true
-    }, {
-      html_content: 0,
-      md_content: 0,
-      imgs: 0
-    })
-    .setOptions(queryOptions).sort({
-      '_id': -1
-    })
+        istop: true
+      }, {
+        html_content: 0,
+        md_content: 0,
+        imgs: 0
+      })
+      .setOptions(queryOptions).sort({
+        '_id': -1
+      })
     // 判断是否为第一页
     if (req.params.current_page === "1") {
       var items = await req.Model.find({
-        istop: false
-      }, {
-        html_content: 0,
-        md_content: 0,
-        imgs: 0
-      })
-      .limit(12-top.length)
-      .setOptions(queryOptions).sort({
-        '_id': -1
-      })
+          istop: false
+        }, {
+          html_content: 0,
+          md_content: 0,
+          imgs: 0
+        })
+        .limit(page_size - top.length)
+        .setOptions(queryOptions).sort({
+          '_id': -1
+        })
       items = top.concat(items)
     } else {
       var items = await req.Model.find({
-        istop: false
-      }, {
-        html_content: 0,
-        md_content: 0,
-        imgs: 0
-      })
-      .skip((req.params.current_page - 2) * 12 + (12 - top.length)).limit(12)
-      .setOptions(queryOptions).sort({
-        '_id': -1
-      })
+          istop: false
+        }, {
+          html_content: 0,
+          md_content: 0,
+          imgs: 0
+        })
+        .skip((req.params.current_page - 2) * page_size + (page_size - top.length)).limit(page_size)
+        .setOptions(queryOptions).sort({
+          '_id': -1
+        })
     }
     res.send(items)
   })
@@ -88,7 +89,7 @@ module.exports = app => {
         html_content: 0,
         md_content: 0
       })
-      .skip((req.params.current_page - 1) * 12).limit(12)
+      .skip((req.params.current_page - 1) * page_size).limit(page_size)
       .populate({
         path: 'tags',
         select: 'tag'
@@ -139,7 +140,7 @@ module.exports = app => {
         html_content: 0,
         md_content: 0
       })
-      .skip((req.params.current_page - 1) * 12).limit(12)
+      .skip((req.params.current_page - 1) * page_size).limit(page_size)
       .populate({
         path: 'tags',
         select: 'tag'
@@ -164,8 +165,16 @@ module.exports = app => {
     })
     res.send(model)
   })
+  // 阅读量自加
   router.put('/pageviews/:id', async (req, res) => {
-    await req.Model.findByIdAndUpdate(req.params.id, req.body)
+    await req.Model.findByIdAndUpdate(req.params.id, {
+      $inc: {
+        pageviews: 1
+      }
+    })
+    res.send({
+      success: true
+    })
   })
   // 常规资源中间件
   const commonMiddleware = require('../middleware/common')

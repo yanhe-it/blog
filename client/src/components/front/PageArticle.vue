@@ -5,6 +5,7 @@
        <!-- mavon-editor -->
       <mavon-editor 
       codeStyle="monokai" 
+      style="box-shadow: none;"
       v-html="page_article.html_content">
       </mavon-editor>
       <comment></comment>

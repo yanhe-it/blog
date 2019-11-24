@@ -9,6 +9,7 @@
     size="medium"
     v-for="tag in article.tags"
     :key="tag._id">{{tag.tag}}</el-tag>
+    <p>转载请注明地址</p>
   </div>
 </template>
 
@@ -22,13 +23,12 @@ export default {
 
 <style scoped>
 .header {
-  margin: 80px 0 20px;
+  margin: 70px 0 0;
   padding: 10px;
   background: rgba(255, 255, 255, 0.94);
-  -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
 }
 .el-tag {
+  border-radius: 14px;
   margin-right: 20px;
   background-color: rgb(149, 29, 165);
   color: rgb(224, 228, 6);
@@ -38,5 +38,10 @@ export default {
 }
 i {
   margin-right: 30px;
+}
+p {
+  color: rgb(173, 21, 128);
+  font-size: 15px;
+  display: inline-block;
 }
 </style>

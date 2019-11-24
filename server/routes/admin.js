@@ -3,12 +3,11 @@ module.exports = app => {
   const Tag = require('../models/Tag')
   const AdminUser = require('../models/AdminUser')
   const jwt = require('jsonwebtoken')
-  const ok = require('assert')
   const assert = require('http-assert')
   const router = express.Router({
     mergeParams: true
   })
-
+  const page_size = 10; // 每页文章数量
   //常规获取
   router.get('/', async (req, res) => {
     const items = await req.Model.find()
@@ -48,7 +47,7 @@ module.exports = app => {
         md_content: 0,
         imgs: 0
       })
-      .limit(10-top.length)
+      .limit(page_size-top.length)
       .setOptions(queryOptions).sort({
         '_id': -1
       })
@@ -61,7 +60,7 @@ module.exports = app => {
         md_content: 0,
         imgs: 0
       })
-      .skip((req.params.current_page - 2) * 10 + (10 - top.length)).limit(10)
+      .skip((req.params.current_page - 2) * page_size + (page_size - top.length)).limit(page_size)
       .setOptions(queryOptions).sort({
         '_id': -1
       })
@@ -93,7 +92,7 @@ module.exports = app => {
         html_content: 0,
         md_content: 0
       })
-      .skip((req.params.current_page - 1) * 10).limit(10)
+      .skip((req.params.current_page - 1) * page_size).limit(page_size)
       .populate({
         path: 'tags',
         select: 'tag'
@@ -144,7 +143,7 @@ module.exports = app => {
         html_content: 0,
         md_content: 0
       })
-      .skip((req.params.current_page - 1) * 10).limit(10)
+      .skip((req.params.current_page - 1) * page_size).limit(page_size)
       .populate({
         path: 'tags',
         select: 'tag'

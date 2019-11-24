@@ -12,7 +12,7 @@
         :hide-on-single-page="true"
         @current-change="handleCurrentChange"
         :current-page.sync="current_page"
-        :page-size="12"
+        :page-size="page_size"
       ></el-pagination>
     </div>
     <div class="pagination-small">
@@ -23,7 +23,7 @@
         :hide-on-single-page="true"
         @current-change="handleCurrentChange"
         :current-page.sync="current_page"
-        :page-size="12"
+        :page-size="page_size"
         small
       ></el-pagination>
     </div>
@@ -42,7 +42,8 @@ export default {
   },
   data() {
     return {
-      current_page: NaN
+      current_page: NaN,
+      page_size: 12
     };
   },
   methods: {

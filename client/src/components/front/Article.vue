@@ -5,7 +5,7 @@
     <div class="container">
       <article-header v-bind:article="article"></article-header>
       <!-- mavon-editor -->
-      <mavon-editor codeStyle="monokai" v-html="article.html_content"></mavon-editor>
+      <mavon-editor codeStyle="monokai" v-html="article.html_content" style="box-shadow: none;"></mavon-editor>
       <comment></comment>
     </div>
     <!-- 目录 -->
@@ -18,7 +18,7 @@
 <script>
 import Header from "@/components/front/Header.vue";
 import Footer from "@/components/front/Footer.vue";
-import Comment from "@/components/front/Comment.vue"
+import Comment from "@/components/front/Comment.vue";
 import ArticleHeader from "@/components/front/ArticleHeader.vue";
 export default {
   name: "article_page",
@@ -37,11 +37,7 @@ export default {
       this.addPV();
     },
     async addPV() {
-      this.article.pageviews++;
-      await this.$http.put(
-        `/front/common/articles/pageviews/${this.id}`,
-        this.article
-      );
+      await this.$http.put(`/front/common/articles/pageviews/${this.id}`);
     }
   },
   created() {
@@ -50,7 +46,7 @@ export default {
   components: {
     "yh-nav": Header,
     "yh-footer": Footer,
-    "comment": Comment,
+    comment: Comment,
     "article-header": ArticleHeader
   }
 };

@@ -92,6 +92,7 @@ export default {
 .title {
   flex-grow: 3;
   font-size: 18px;
+  color: rgb(196, 15, 233);
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
 }
 .details {
@@ -103,6 +104,7 @@ export default {
 }
 i {
   margin-right: 2px;
+  color: rgb(110, 14, 43);
 }
 @media (max-width: 420px) {
   .card {

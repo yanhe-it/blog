@@ -30,6 +30,7 @@ export default {};
 }
 .footer-text a {
   text-decoration: none;
+  color: #000;
 }
 .divider {
   margin: 0 20px;

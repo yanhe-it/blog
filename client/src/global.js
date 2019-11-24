@@ -60,15 +60,15 @@ Vue.mixin({
         method: "post",
         data: formdata,
         headers: this.getAuthHeaders()
-      }).then(file => {
+      }).then(img => {
         // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
         /**
          * $vm 指为mavonEditor实例，可以通过如下两种方式获取
          * 1. 通过引入对象获取: `import {mavonEditor} from ...` 等方式引入后，`$vm`为`mavonEditor`
          * 2. 通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
          */
-        this.$refs.md.$img2Url(pos, file.data.url);
-        this.imgs.push(file.data.url)
+        this.$refs.md.$img2Url(pos, img.data.url)
+        this.imgs.push(img.data.url)
       })
     },  
 // mavonEditor删除上传图片
